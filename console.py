@@ -139,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 if type(value) == int:
                     value = int(value)
-        param_list[key] = value
+            param_list[key] = value
         new_instance = HBNBCommand.classes[class_name](**param_list)
         new_instance.save()
         print(new_instance.id)
