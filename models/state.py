@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+from models.city import City
 from os import environ
 import models
 
@@ -13,13 +14,13 @@ class State(BaseModel):
 
     if environ.get('HBNB_TYPE_STORAGE') == 'db':
         name = Column(String(128), nullable=False)
-        cities = relationship('City', cascade='all, delete-orphan', backref='state')
+        cities = relationship('City', cascade='all, delete', backref='state')
     else:
         @property
         def cities(self):
             """Gets a list of City instances with state_id equal to the current State.id."""
             cities = []
-            for city in models.storage.all('City').values():
+            for city in list(models.storage.all(City).values()):
                 if city.state_id == self.id:
                     cities.append(city)
             return cities
