@@ -4,7 +4,7 @@ from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
-from models.base_model import Base
+from models.base_model import BaseModel, Base
 from models.amenity import Amenity
 from models.city import City
 from models.place import Place
@@ -73,12 +73,12 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """
-        Create all tables in the database
-        """
+        """create all tables in the database"""
         Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(sessionmaker(bind=self.__engine,
-                                                     expire_on_commit=False))()
+
+        session = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(session)
+        self.__session = Session()
 
     def close(self):
         """close session"""
