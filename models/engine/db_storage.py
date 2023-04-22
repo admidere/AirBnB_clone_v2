@@ -37,18 +37,19 @@ class DBStorage:
         Query on the current database session
         all objects depending of the class name
         """
-        objects = {}
-        classes = [User, State, City, Amenity, Place, Review]
-        if cls:
+        if cls is None:
+            classes = [User, State, City, Amenity, Place, Review]
+        else:
             classes = [cls]
 
+        objects = {}
         for c in classes:
-            for obj in self.__session.query(c):
+            query = self.__session.query(c)
+            for obj in query:
                 key = "{}.{}".format(type(obj).__name__, obj.id)
                 objects[key] = obj
 
         return objects
-
     def new(self, obj):
         """
         Add the object to the current database session (self.__session)
