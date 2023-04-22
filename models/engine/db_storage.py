@@ -1,6 +1,9 @@
+#!/usr/bin/python3
+"""A new type of storage"""
 from os import getenv
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm import sessionmaker
 from models.base_model import Base
 from models.amenity import Amenity
 from models.city import City
