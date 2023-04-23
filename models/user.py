@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
 from models.place import Place
 
+
 class User(BaseModel, Base):
     __tablename__ = "users"
 
