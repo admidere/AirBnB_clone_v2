@@ -16,26 +16,20 @@ def do_pack():
     # Generate the archive name with the current timestamp
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     archive_name = "web_static_{}.tgz".format(timestamp)
-    archive_path = os.path.join("versions", archive_name)
 
     # Print the packing message
-    print("Packing web_static to {}".format(archive_path))
+    print("Packing web_static to {}".format(archive_name))
 
     # Create the .tgz archive and capture the output
-    result = local(
-        "tar -cvzf {} web_static".format(archive_path),
-        capture=True
-    )
+    result = local("tar -cvzf {} web_static".format(archive_name))
 
     # Print the output and the archive size
-    print(result)
-    archive_size = os.path.getsize(archive_path)
-    print("web_static packed: {} -> {}Bytes".format(archive_path,
+    archive_size = os.path.getsize(archive_name)
+    print("web_static packed: {} -> {}Bytes".format(archive_name,
                                                     archive_size))
 
     # Return the archive path if the archive was created successfully
     # otherwise return None
-    if result.succeeded:
-        return archive_path
-    else:
+    if result.failed:
         return None
+    return os.path.join("versions", result)
