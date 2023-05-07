@@ -4,18 +4,17 @@
 """
 
 
-import os.path
-from fabric.api import env, put, run
+import os
+from fabric.api import *
 
 
 env.hosts = ['18.207.2.134', '100.25.152.180']
 env.user = 'ubuntu'
-# env.key_filename = '<path_to_ssh_key>'
 
 
 def do_deploy(archive_path):
     """Distributes an archive to web servers"""
-    if not os.path.isfile(archive_path):
+    if not os.path.exists(archive_path):
         return False
 
     try:
@@ -26,7 +25,7 @@ def do_deploy(archive_path):
         # /data/web_static/releases/<archive filename without extension>
         # on the web server
         archive_name = os.path.basename(archive_path)
-        archive_dir = archive_name.split(".")[0]
+        archive_dir = os.path.splitext(archive_name)[0]
         run("mkdir -p /data/web_static/releases/{}/".format(archive_dir))
         run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
             .format(archive_name, archive_dir))
