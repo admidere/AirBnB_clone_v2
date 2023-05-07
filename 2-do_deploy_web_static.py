@@ -7,9 +7,8 @@
 import os
 from fabric.api import *
 
-
-env.hosts = ['18.207.2.134', '100.25.152.180']
 env.user = 'ubuntu'
+env.hosts = ['18.207.2.134', '100.25.152.180']
 
 
 def do_deploy(archive_path):
@@ -46,8 +45,7 @@ def do_deploy(archive_path):
         run("rm -rf /data/web_static/current")
 
         # Create a new symbolic link /data/web_static/current on the webserver
-        # linked to the new version of your code (/data/web_static/releases/
-        # <archive filename without extension>)
+        # linked to the new version of your code (/data/web_static/releas
         run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
             .format(archive_dir))
 
