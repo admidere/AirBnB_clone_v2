@@ -17,6 +17,9 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return False
 
+    archive_name = os.path.basename(archive_path)
+    archive_dir = os.path.splitext(archive_name)[0]
+
     try:
         # Upload the archive to the /tmp/ directory of the web server
         put(archive_path, "/tmp/")
@@ -24,8 +27,6 @@ def do_deploy(archive_path):
         # Uncompress the archive to the folder
         # /data/web_static/releases/<archive filename without extension>
         # on the web server
-        archive_name = os.path.basename(archive_path)
-        archive_dir = os.path.splitext(archive_name)[0]
         run("mkdir -p /data/web_static/releases/{}/".format(archive_dir))
         run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
             .format(archive_name, archive_dir))
