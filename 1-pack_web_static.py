@@ -17,7 +17,6 @@ def do_pack():
         os.makedirs("versions")
 
     # Creating the archive
-    print(f"Packing web_static to versions/{archive_name}")
     archive = local("tar -cvzf versions/{} web_static".format(archive_name))
 
     # Returning the archive path if the archive is correctly generated,
