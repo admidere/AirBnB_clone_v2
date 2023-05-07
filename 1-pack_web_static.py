@@ -17,11 +17,13 @@ def do_pack():
         os.makedirs("versions")
 
     # Creating the archive
+    print(f"Packing web_static to versions/{archive_name}")
     archive = local("tar -cvzf versions/{} web_static".format(archive_name))
 
     # Returning the archive path if the archive is correctly generated,
     # otherwise it should return None
     if archive.failed:
         return None
-
+    archive_size = os.path.getsize(os.path.join('versions', archive_name))
+    print(f"web_static packed: versions/{archive_name} -> {archive_size}Bytes")
     return os.path.join("versions", archive)
