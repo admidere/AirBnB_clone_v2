@@ -24,6 +24,4 @@ def do_pack():
     # otherwise it should return None
     if archive.failed:
         return None
-    archive_size = os.path.getsize(os.path.join('versions', archive_name))
-    print(f"web_static packed: versions/{archive_name} -> {archive_size}Bytes")
     return os.path.join("versions", archive)
