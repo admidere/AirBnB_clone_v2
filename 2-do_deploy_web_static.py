@@ -16,8 +16,8 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return False
 
-   file_name = os.path.basename(archive_path)
-   archive_name = os.path.splitext(file_name)[0]
+    file_name = os.path.basename(archive_path)
+    archive_name = os.path.splitext(file_name)[0]
 
     try:
         # Upload the archive to the /tmp/ directory of the web server
