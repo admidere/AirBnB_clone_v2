@@ -23,4 +23,4 @@ def do_pack():
     # otherwise it should return None
     if archive.failed:
         return None
-    return os.path.join("versions", archive)
+    return os.path.join("versions", archive_name)
