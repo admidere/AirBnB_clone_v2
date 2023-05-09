@@ -7,8 +7,14 @@ if ! dpkg -l | grep -q nginx; then
 fi
 
 # Create required directories
-sudo mkdir -p /data/web_static/releases/test/
-sudo mkdir -p /data/web_static/shared/
+# Creates /data/web_static/releases/test/ if it doesn’t already exist
+if ! [ -d /web_static/releases/test/ ]; then
+	mkdir -p /data/web_static/releases/test/
+fi
+
+if ! [ -d /data/web_static/shared/ ]; then
+	mkdir -p /data/web_static/shared/
+fi
 
 # Create a fake HTML file
 echo "<html>
@@ -26,8 +32,10 @@ sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 # Set ownership of the /data/ folder to the ubuntu user and group
 sudo chown -R ubuntu:ubuntu /data/
 
-# Update Nginx configuration
-sudo sed -i '/listen 80 default_server;/a location /hbnb_static/ {\n\talias /data/web_static/current/;\n}\n' /etc/nginx/sites-available/default
+sudo sed -i "/^server {/a \\
+	location /hbnb_static { \\
+	alias /data/web_static/current/; \\
+}" /etc/nginx/sites-available/default
 
 # Restart Nginx
 sudo service nginx restart
