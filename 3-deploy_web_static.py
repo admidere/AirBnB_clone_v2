@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ A fabric script that generates a .tgz archive from the contents
-    of of the web_static folder.
+    of the web_static folder.
 """
 from fabric.api import local, run, put, env
 import os
