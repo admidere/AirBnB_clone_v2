@@ -30,6 +30,7 @@ def do_pack():
         return None
     return os.path.join("versions", archive_name)
 
+
 def do_deploy(archive_path):
     """
     Distributes an archive to the web servers
@@ -72,6 +73,7 @@ def do_deploy(archive_path):
 
     except Exception:
         return False
+
 
 def deploy():
     """
