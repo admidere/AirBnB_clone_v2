@@ -85,7 +85,7 @@ def display_number(n):
     Displays "<n> is a number" if n is an integer.
 
     Args:
-        n (int): The number value from the URL.
+        n (int): The number valuefrom the URL.
 
     Returns:
         str: The response string.
