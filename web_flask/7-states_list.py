@@ -40,8 +40,9 @@ def states_list():
 
 
 @app.teardown_appcontext
-def teardown_db(exception):
-    """Closes the storage on teardown"""
+def app_teardown(arg=None):
+    """Clean-up session
+    """
     storage.close()
 
 
